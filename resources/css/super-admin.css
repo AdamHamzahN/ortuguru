@@ -1,0 +1,23 @@
+.dt-search{
+    width: 75%;
+    justify-content: space-between !important;
+    align-items: start !important;
+}
+
+.dt-layout-start{
+    width: 50%;
+    justify-content: start !important;
+}
+
+#dt-search-0{
+    width: calc(100% - 70px);
+}
+
+.dt-search label {
+    width: 55px;
+}
+
+.dt-layout-end{
+    width: 50%;
+    justify-content: end !important;
+}
