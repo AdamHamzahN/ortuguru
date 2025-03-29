@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,9 @@ Route::prefix('/super-admin')->group(function(){
  */
 Route::prefix('/admin')->group(function(){
     //
+    Route::prefix('/export')->group(function(){
+        Route::get('/siswa',[ExportController::class,'siswaExport'])->name('export.siswa');
+    });
 });
 
 
