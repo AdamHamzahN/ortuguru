@@ -22,15 +22,39 @@
             </table>
         </div>
     </div>
+
+    {{-- Modal tambah admin --}}
+    <div class="modal fade" id="modalForm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btnSimpan">Simpan</button>
+                    <button class="btn btn-primary " data-bs-dismiss="modal">Batal</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 @endsection
 
 @section('footer')
     <script type="module">
-        $('.DataTable').DataTable({
+        const barangModal = document.querySelector('#modalForm');
+        const modal = bootstrap.Modal.getOrCreateInstance(barangModal);
+        let table = $('.DataTable').DataTable({
             processing: true,
             serverSide: true,
             lengthChange: false,
-            info: false,
             ajax: {
                 url: "http://127.0.0.1:8000/super-admin/admin/data",
                 type: "GET",
@@ -56,7 +80,16 @@
                 },
                 {
                     data: 'status',
-                    name: 'status'
+                    render: function(data, type, row) {
+                        console.log(row);
+                        let checked = data === 'aktif' ? 'checked' : '';
+                        return `
+                            <label class="form-check form-switch">
+                                <input class="form-check-input toggleSwitch" type="checkbox" data-id="${row.id}" ${checked}>
+                                ${data}
+                            </label>
+                        `;
+                    }
                 },
                 {
                     data: 'created_at',
@@ -69,13 +102,96 @@
             },
             buttons: [{
                 text: 'Tambah',
-                className: 'btn btn-primary px-5',
+                className: 'btn btn-primary px-5 btnTambahBarang',
                 action: function(e, dt, node, config) {
-                    alert('Tombol Tambah Data diklik!');
+                    changeHTML('#modalForm', '.modal-title', 'Tambah Data Admin');
+                    let modalForm = document.getElementById('modalForm');
+
+                    let bsModal = new bootstrap.Modal(modalForm);
+                    bsModal.show();
+
+                    modalForm.addEventListener('shown.bs.modal', function(eventTambah) {
+                        const link = "{{ route('admin.tambah') }}";
+
+                        axios.get(link).then(response => {
+                            $("#modalForm .modal-body").html(response.data);
+                        });
+
+                        // Event listener untuk tombol Simpan
+                        $('.btnSimpan').off('click').on('click', function(submitEvent) {
+                            submitEvent.stopImmediatePropagation();
+
+                            var data = {
+                                'nama': $('#nama').val(),
+                                'email': $('#email').val(),
+                                '_token': "{{ csrf_token() }}"
+                            };
+
+                            if (data.nama !== '' && data.email !== '') {
+                                // alert(data.nama)
+                                axios.post('{{ url('/super-admin/admin/simpan') }}',
+                                    data).then(resp => {
+                                    if (resp.data.status == 'success') {
+                                        Swal.fire({
+                                            title: "Berhasil!",
+                                            text: resp.data.pesan,
+                                            icon: "success"
+                                        }).then(() => {
+                                            bsModal
+                                                .hide(); // Tutup modal
+                                            table.ajax.reload(); 
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            title: "Gagal!",
+                                            text: resp.data.pesan,
+                                            icon: "error"
+                                        });
+                                    }
+                                });
+                            } else {
+                                alert('Data tidak boleh kosong!');
+                            }
+                        });
+                    });
                 }
-            }],
-            
+            }]
+
         });
 
+        function changeHTML(element, find, text) {
+            $(element).find(find).html();
+            return $(element).find(find).html(text).promise().done();
+        }
+
+        $(document).on('change', '.toggleSwitch', function() {
+            let userId = $(this).data('id'); // Ambil ID user dari data-id
+            let newStatus = $(this).is(':checked') ? 'aktif' : 'tidak aktif'; // Tentukan status baru
+            let switchLabel = $(this).siblings('.switchStatus'); // Ambil elemen teks status
+
+            let data = { 'id': userId, 'status': newStatus }; 
+            console.log(data);
+
+
+            // Kirim permintaan AJAX ke server
+            axios.post(`/super-admin/admin/${userId}/update-status`, data).then(resp => {
+                console.log(resp.data.status == 'success');
+                if (resp.data.status == 'success') {
+                    Swal.fire({
+                        title: "Berhasil!",
+                        text: resp.data.pesan,
+                        icon: "success"
+                    }).then(()=>{
+                        table.ajax.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Gagal!",
+                        text: resp.data.pesan,
+                        icon: "error"
+                    });
+                }
+            });
+        });
     </script>
 @endsection

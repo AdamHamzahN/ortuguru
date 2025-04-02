@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
@@ -31,12 +33,14 @@ Route::prefix('/login')->group(function(){
  * Url untuk role Super Admin
  * url = http://localhost:8000/super-admin
  */
-Route::prefix('/super-admin')->group(function(){
+Route::prefix('/super-admin')->middleware(['user.middleware'])->group(function(){
     Route::get('/',function () { return redirect()->route('super-admin.dashboard');});
-    Route::get('/dashboard',[SuperAdminController::class,'dashboard'])->name('super-admin.dashboard');
+    Route::get('/dashboard',[DashboardController::class,'SuperAdminDashboard'])->name('super-admin.dashboard');
     Route::prefix('/admin')->group(function(){
-        Route::get('/data',[SuperAdminController::class,'dataAdmin'])->name('admin.data');
-        Route::get('/tambah',[SuperAdminController::class,'tambahAdmin'])->name('admin.tambah');
+        Route::get('/data',[AdminController::class,'dataAdmin'])->name('admin.data');
+        Route::get('/tambah',[AdminController::class,'tambahAdmin'])->name('admin.tambah');
+        Route::post('/simpan',[AdminController::class,'simpan'])->name('admin.simpan');
+        Route::post('/{id}/update-status',[AdminController::class,'updateStatusAdmin'])->name('admin.updateStatus');
     });
 });
 

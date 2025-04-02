@@ -1,5 +1,10 @@
 <?php
 
+/**
+ *  Nama file : AuthController.php
+ *  Tujuan : file ini berfungsi untuk mengatur autentikasi (login & logout) user.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\Role;
@@ -22,25 +27,26 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
+            $user = Auth::user();
+            
+            // $userId = User::where('email','=',$request->email)->value('id');
 
-        if ($user && Hash::check($validated['password'], $user->password)) {
-            Auth::login($user);
-            $role = Role::where('id', '=', $user->role_id)->value('nama');
-
-            if ($role == 'Super Admin') {
-                return redirect()->to('/super-admin');
-            } else if ($role == 'Admin') {
-                return redirect()->to('/admin');
-            } else if ($role == 'Guru') {
-                return redirect()->to('/guru');
-            } else if ($role == 'Orang Tua Siswa') {
-                return redirect()->to('/ortu-siswa');
-            } else {
-                return redirect()->to('/login');
+            $role = $user->role->nama;
+    
+            switch ($role) {
+                case 'Super Admin':
+                    return redirect()->to('/super-admin');
+                case 'Admin':
+                    return redirect()->to('/admin');
+                case 'Guru':
+                    return redirect()->to('/guru');
+                case 'Orang Tua Siswa':
+                    return redirect()->to('/ortu-siswa');
+                default:
+                    return redirect()->to('/login');
             }
-        } else {
-            return redirect()->back()->with('error', 'Email atau password salah!');
         }
+        return redirect()->back()->with('error', 'Email atau password salah!');
     }
 }

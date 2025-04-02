@@ -1,5 +1,10 @@
 <?php
 
+/** 
+ *  Nama file : ExportController.php
+ *  Tujuan : file ini berfungsi untuk meng export data.
+ */
+
 namespace App\Http\Controllers;
 
 use App\Exports\SiswaExport;
