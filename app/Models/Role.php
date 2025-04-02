@@ -9,9 +9,13 @@ class Role extends Model
 {
     protected $table = 'role';
     protected $primaryKey = 'id';
-    
-    public $incrementing = false; 
+
+    public $incrementing = false;
     protected $keyType = 'string';
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 
     // Generate UUID
     public function setIdAttribute($value)

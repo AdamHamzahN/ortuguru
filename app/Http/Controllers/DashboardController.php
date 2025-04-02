@@ -15,15 +15,10 @@ class DashboardController extends Controller
 {
     public function SuperAdminDashboard()
     {
-        $adminrole = Role::where('nama', '=', 'Admin')->value('id');
-        $data = [
-            'admin' => User::where('role_id', '=', $adminrole)->get()
-        ];
-
-        return view('super-admin.dashboard', $data);
+        return view('super-admin.dashboard');
     }
 
     public function AdminDashboard(){
-
+        return view('admin.dashboard');
     }
 }

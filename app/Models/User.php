@@ -13,10 +13,15 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'user';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','nama', 'email', 'password','role_id'];
+    protected $fillable = ['id', 'nama', 'email', 'password', 'role_id'];
     public $timestamps = true;
     public $incrementing = false;
     protected $keyType = 'string';
+    
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     // menjalan kan function ketika model diakses (create, update, delete)
     protected static function boot()

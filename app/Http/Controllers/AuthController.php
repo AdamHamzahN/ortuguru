@@ -29,8 +29,6 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']])) {
             $user = Auth::user();
-            
-            // $userId = User::where('email','=',$request->email)->value('id');
 
             $role = $user->role->nama;
     

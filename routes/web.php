@@ -33,7 +33,7 @@ Route::prefix('/login')->group(function(){
  * Url untuk role Super Admin
  * url = http://localhost:8000/super-admin
  */
-Route::prefix('/super-admin')->middleware(['user.middleware'])->group(function(){
+Route::prefix('/super-admin')->middleware(['role:Super Admin'])->group(function(){
     Route::get('/',function () { return redirect()->route('super-admin.dashboard');});
     Route::get('/dashboard',[DashboardController::class,'SuperAdminDashboard'])->name('super-admin.dashboard');
     Route::prefix('/admin')->group(function(){
@@ -49,8 +49,9 @@ Route::prefix('/super-admin')->middleware(['user.middleware'])->group(function()
  * Url untuk role Admin
  * url = http://localhost:8000/admin
  */
-Route::prefix('/admin')->group(function(){
-    //
+Route::prefix('/admin')->middleware(['role:Admin'])->group(function(){
+    Route::get('/',function () { return redirect()->route('super-admin.dashboard');});
+    Route::get('/dashboard',[DashboardController::class,'AdminDashboard'])->name('admin.dashboard');
     Route::prefix('/export')->group(function(){
         Route::get('/siswa',[ExportController::class,'siswaExport'])->name('export.siswa');
     });

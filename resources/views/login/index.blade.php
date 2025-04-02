@@ -14,7 +14,6 @@
                                     style="max-width: 180px;">
                             </div>
                             <form action="/login/check" method="post">
-                                @csrf
                                 <div>
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
@@ -25,6 +24,7 @@
                                         <input type="password" class="form-control" name="password" required>
                                     </div>
                                 </div>
+                                @csrf
                                 <button type="submit" class="btn btn-warning w-100 fw-semibold mt-4"
                                     style="background-color: #FA9420;">Login</button>
                             </form>
