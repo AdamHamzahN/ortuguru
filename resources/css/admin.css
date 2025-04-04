@@ -1,0 +1,10 @@
+.nav-link.active {
+    background-color: #FA9420 !important; /* Warna background aktif */
+    color: #ffffff !important; /* Warna teks aktif */
+    border-radius: 5px; /* Tambahkan efek border-radius jika diperlukan */
+}
+
+.nav-link.active-submenu {
+    color: #ffffff !important; /* Warna teks aktif */
+    border-radius: 5px; /* Tambahkan efek border-radius jika diperlukan */
+}

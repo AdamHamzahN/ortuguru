@@ -56,7 +56,7 @@
             serverSide: true,
             lengthChange: false,
             ajax: {
-                url: "http://127.0.0.1:8000/super-admin/admin/data",
+                url: "/super-admin/admin/data",
                 type: "GET",
                 dataType: "json",
                 headers: {

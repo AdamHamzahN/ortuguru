@@ -43,6 +43,7 @@ class GuruSeeder extends Seeder
                 'user_id' => $userId,
                 'jenis_kelamin' => 'Perempuan',
                 'alamat' => 'Jl. Merdeka No. 10, Bekasi',
+                'agama'=>'Islam',
                 'tanggal_lahir' => '1985-05-15',
                 'tempat_lahir' => 'Jakarta',
                 'foto' => 'example/guru/guru1.jpg',

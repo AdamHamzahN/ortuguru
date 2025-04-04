@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('tempat_lahir',30)->nullable(false);
             $table->date('tanggal_lahir')->nullable(false);
             $table->text('alamat')->nullable(false);
+            $table->string('agama',30)->nullable(false);
             $table->text('foto');
             $table->text('ijazah_smp');
             $table->text('akte_kelahiran');

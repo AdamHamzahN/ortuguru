@@ -126,6 +126,7 @@ class SiswaSeeder extends Seeder
                 'jenis_kelamin' => 'laki-laki',
                 'tempat_lahir' => 'Bekasi',
                 'tanggal_lahir' => '2006-08-15',
+                'agama'=>'Islam',
                 'alamat' => 'Jl. Pendidikan No. 10, Bekasi',
                 'foto' => 'example/siswa/siswa1.jpg',
                 'ijazah_smp' => 'example/ijazah/ijazah1.pdf',

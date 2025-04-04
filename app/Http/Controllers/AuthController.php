@@ -31,7 +31,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             $role = $user->role->nama;
-    
+
             switch ($role) {
                 case 'Super Admin':
                     return redirect()->to('/super-admin');
@@ -46,5 +46,18 @@ class AuthController extends Controller
             }
         }
         return redirect()->back()->with('error', 'Email atau password salah!');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Logout user
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Anda telah logout.')
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
     }
 }

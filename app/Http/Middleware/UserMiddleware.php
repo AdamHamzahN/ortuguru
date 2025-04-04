@@ -20,20 +20,13 @@ class UserMiddleware
 
         if (!$user) {
             return redirect()->to('/login');
-        }        
-
-        if ($user->role->nama != $role) {
-            return redirect()->to('/login');  // Jika role tidak sesuai, arahkan ke login
         }
-        
-        return $next($request);  
 
-        // return match ($user->role->nama ?? '') {
-        //     'Super Admin' => redirect()->to('/super-admin'),
-        //     'Admin' => redirect()->to('/admin'),
-        //     'Guru' => redirect()->to('/guru'),
-        //     'Orang Tua Siswa' => redirect()->to('/ortu-siswa'),
-        //     default => redirect()->to('/login'),
-        // };
+        if (!$user->role || $user->role->nama !== $role) {
+            // return redirect()->route('login')->with('error', $user);
+            dd($user->role , $user->role->nama, $role);
+        }
+
+        return $next($request);
     }
 }
