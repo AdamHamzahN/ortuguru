@@ -18,7 +18,7 @@ class SiswaSeeder extends Seeder
         // Jurusan
         // Pastikan jurusan sudah ada, jika tidak, buat baru
         $jurusanId = DB::table('jurusan')->where('nama_jurusan', 'Rekayasa Perangkat Lunak')->value('id');
-        $kaprogId = DB::table('guru')->where('user_id',DB::table('user')->where('nama','Dela Chaerani, M.Kom.')->value('id'))->value('id');
+        $kaprogId = DB::table('guru')->where('user_id',DB::table('user')->where('email','faruzan@email.com')->value('id'))->value('id');
 
         if (!$jurusanId) {
             $jurusanId = Str::uuid();
@@ -47,7 +47,7 @@ class SiswaSeeder extends Seeder
 
 
         //kelas
-        $userGuruId = DB::table('user')->where('nama', '=', 'Dela Chaerani, M.Kom.')->value('id');
+        $userGuruId = DB::table('user')->where('email', '=', 'faruzan@email.com')->value('id');
         $guruId = DB::table('guru')->where('user_id', '=', $userGuruId)->value('id');
         $kelasId = DB::table('kelas')->where([
             ['nama_kelas', '=', 'RPL A'],
@@ -98,7 +98,7 @@ class SiswaSeeder extends Seeder
             DB::table('orang_tua_siswa')->insert([
                 'id' => $orangTuaId,
                 'user_id' => $userSiswaId,
-                'ayah' => 'Budi Santoso',
+                'ayah' => 'Budiman Santoso',
                 'ibu' => 'Siti Aminah',
                 'no_telepon_ortu' => '081234567890',
                 'created_at' => now(),
@@ -107,7 +107,7 @@ class SiswaSeeder extends Seeder
         } else {
             // Update data jika sudah ada
             DB::table('orang_tua_siswa')->where('id', $orangTuaId)->update([
-                'ayah' => 'Budi Santoso',
+                'ayah' => 'Budiman Santoso',
                 'ibu' => 'Siti Aminah',
                 'no_telepon_ortu' => '081234567890',
                 'updated_at' => now(),
@@ -128,10 +128,10 @@ class SiswaSeeder extends Seeder
                 'tanggal_lahir' => '2006-08-15',
                 'agama'=>'Islam',
                 'alamat' => 'Jl. Pendidikan No. 10, Bekasi',
-                'foto' => 'example/siswa/siswa1.jpg',
-                'ijazah_smp' => 'example/ijazah/ijazah1.pdf',
-                'akte_kelahiran' => 'example/akte_kelahiran/akte1.pdf',
-                'kartu_keluarga' => 'example/kartu_keluarga/kartu_keluarga1.pdf',
+                'foto' => 'foto_siswa/siswa_example.jpg',
+                'ijazah_smp' => 'ijazah_smp/ijazah_example.pdf',
+                'akte_kelahiran' => 'akte_kelahiran/akte_example.pdf',
+                'kartu_keluarga' => 'kartu_keluarga/kartu_keluarga_example.pdf',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

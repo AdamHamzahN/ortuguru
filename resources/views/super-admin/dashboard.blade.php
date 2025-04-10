@@ -102,7 +102,7 @@
             },
             buttons: [{
                 text: 'Tambah',
-                className: 'btn btn-primary px-5 btnTambahBarang',
+                className: 'btn btn-primary px-5 btnTambah',
                 action: function(e, dt, node, config) {
                     changeHTML('#modalForm', '.modal-title', 'Tambah Data Admin');
                     let modalForm = document.getElementById('modalForm');

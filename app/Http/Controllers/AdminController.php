@@ -65,7 +65,7 @@ class AdminController extends Controller
                 return response()->json([
                     'status' => 'failed',
                     'pesan' => 'Data Gagal Ditambahkan'
-                ], 500);
+                ], 200);
             }
         }
     }
@@ -90,7 +90,7 @@ class AdminController extends Controller
             return response()->json([
                 'status' => 'failded',
                 'pesan' => 'Status Gagal Diubah'
-            ], 500);
+            ], 200);
         }
     }
 }

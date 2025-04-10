@@ -71,16 +71,16 @@
                                 Guru
                             </a>
                             <div class="collapse {{ request()->is('admin/guru*') ? 'show' : '' }}" id="guruMenu">
-                                <ul class="nav flex-column ms-3">
+                                {{-- <ul class="nav flex-column ms-3">
                                     <li class="nav-item">
-                                        <a class="nav-link text-white-50 {{ request()->is('admin/guru/daftar-guru') ? 'active-submenu' : '' }}"
-                                            href="/admin/guru/daftar-guru">Daftar Guru</a>
+                                        <a class="nav-link text-white-50 {{ request()->is('admin/guru/daftar') ? 'active-submenu' : '' }}"
+                                            href="/admin/guru/daftar">Daftar Guru</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-white-50 {{ request()->is('admin/guru/tambah') ? 'active-submenu' : '' }}"
                                             href="/admin/guru/tambah">Tambah Guru</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </li>
 
@@ -111,10 +111,10 @@
                         {{-- Dropdown Jurusan --}}
                         <li class="nav-item">
                             <a class="nav-link text-white-50 {{ request()->is('admin/jurusan*') ? 'active' : '' }}"
-                                href="/admin/jurusan/" onclick="handleMenuClick(event, '/admin/jurusan/', 'jurusanMenu')">
+                                href="/admin/jurusan/">
                                 Jurusan
                             </a>
-                            <div class="collapse {{ request()->is('admin/jurusan*') ? 'show' : '' }}" id="jurusanMenu">
+                            {{-- <div class="collapse {{ request()->is('admin/jurusan*') ? 'show' : '' }}" id="jurusanMenu">
                                 <ul class="nav flex-column ms-3">
                                     <li class="nav-item">
                                         <a class="nav-link text-white-50 {{ request()->is('admin/jurusan') ? 'active-submenu' : '' }}"
@@ -125,27 +125,15 @@
                                             href="/admin/jurusan/tambah">Tambah Jurusan</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </li>
 
                         {{-- Mata Pelajaran --}}
                         <li class="nav-item">
                             <a class="nav-link text-white-50 {{ request()->is('admin/mata-pelajaran*') ? 'active' : '' }}"
-                                href="/admin/mata-pelajaran/" onclick="handleMenuClick(event, '/admin/mata-pelajaran/', 'MataPelajaranMenu')">
-                                MataPelajaran
+                                href="/admin/mata-pelajaran/">
+                                Mata    Pelajaran
                             </a>
-                            <div class="collapse {{ request()->is('admin/mata-pelajaran*') ? 'show' : '' }}" id="MataPelajaranMenu">
-                                <ul class="nav flex-column ms-3">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-white-50 {{ request()->is('admin/mata-pelajaran') ? 'active-submenu' : '' }}"
-                                            href="/admin/mata-pelajaran/">Daftar Mata Pelajaran</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-white-50 {{ request()->is('admin/mata-pelajaran/tambah') ? 'active-submenu' : '' }}"
-                                            href="/admin/mata-pelajaran/tambah">Tambah Mata Pelajaran</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
                     </ul>
                 </nav>

@@ -100,6 +100,11 @@
                 }
             }],
             initComplete: function() {
+                $('.btnOptions').before(`
+                    <a href="/admin/guru/tambah" class="btn btn-primary me-2">
+                        Tambah Guru
+                    </a>
+                `);
                 $('.btnOptions').after(`
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/admin/export/akun-guru" id="editButton">Ekspor Akun Ke Excel</a></li>

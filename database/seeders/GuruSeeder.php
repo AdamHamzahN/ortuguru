@@ -24,8 +24,8 @@ class GuruSeeder extends Seeder
             $userId = Str::uuid();
             DB::table('user')->insert([
                 'id' => $userId,
-                'nama' => 'Dela Chaerani, M.Kom.',
-                'email' => 'delachaerani@email.com',
+                'nama' => 'Faruzan, M.Kom.',
+                'email' => 'faruzan@email.com',
                 'password' => Hash::make(env('DEFAULT_PASSWORD', 'defaultpassword')),
                 'role_id' => $roleId,
                 'created_at' => now(),
@@ -46,7 +46,7 @@ class GuruSeeder extends Seeder
                 'agama'=>'Islam',
                 'tanggal_lahir' => '1985-05-15',
                 'tempat_lahir' => 'Jakarta',
-                'foto' => 'example/guru/guru1.jpg',
+                'foto' => 'foto_guru/guru_example.jpg',
                 'nip' => '198505152022011001',
                 'nomor_telepon' => '081234567890',
                 'created_at' => now(),

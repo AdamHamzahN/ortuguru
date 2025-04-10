@@ -6,22 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class Guru extends Model
+class MataPelajaran extends Model
 {
-    protected $table = 'guru';
+    protected $table = 'mata_pelajaran';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'nip',
-        'jenis_kelamin',
-        'alamat',
-        'agama',
-        'tanggal_lahir',
-        'tempat_lahir',
-        'foto',
-        'nomor_telepon',
-        'user_id'
-    ];
+    protected $fillable = ['id', 'nama_pelajaran'];
     public $timestamps = true;
     public $incrementing = false;
     protected $keyType = 'string';

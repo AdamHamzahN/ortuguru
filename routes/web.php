@@ -5,7 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\SuperAdminController;
+use App\Models\MataPelajaran;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -67,17 +70,29 @@ Route::prefix('/admin')->middleware(['role:Admin'])->group(function(){
         Route::get('/tambah',[GuruController::class,'tambahGuru'])->name('guru.tambah');
         Route::get('/detail/{id}',[GuruController::class,'detailGuru'])->name('guru.detail');
         Route::get('/edit/{id}',[GuruController::class,'editGuru'])->name('guru.edit');
-        Route::get('/daftar-guru',[GuruController::class,'adminDaftarGuru'])->name('guru.daftar-guru');
-        Route::post('/simpan',[GuruController::class,'simpanGuru'])->name('guru.simpan');
+        Route::get('/daftar',[GuruController::class,'adminDaftarGuru'])->name('guru.daftar-guru');
+        Route::get('/list',[GuruController::class,'listGuru'])->name('guru.list');
+        Route::post('/simpan',[GuruController::class,'simpan'])->name('guru.simpan');
     });
     Route::prefix('/siswa')->group(function(){
 
     });
     Route::prefix('/jurusan')->group(function(){
-
+        Route::get('/',function(){  return redirect()->route('jurusan.daftar');});
+        Route::get('/daftar',[JurusanController::class,'adminDaftarJurusan'])->name('jurusan.daftar');
+        Route::get('/data',[JurusanController::class,'dataJurusan'])->name('jurusan.data');
+        Route::get('/tambah',[JurusanController::class,'tambahJurusan'])->name('jurusan.tambah');
+        Route::get('/edit/{id}',[JurusanController::class,'editJurusan'])->name('jurusan.edit');
+        Route::post('/simpan',[JurusanController::class,'simpan'])->name('jurusan.simpan');   
     });
     Route::prefix('/mata-pelajaran')->group(function(){
-
+        Route::get('/',function(){  return redirect()->route('mata-pelajaran.daftar');});
+        Route::get('/daftar-mata-pelajaran',[MataPelajaranController::class,'adminDaftarMataPelajaran'])->name('mata-pelajaran.daftar');
+        Route::get('/tambah',[MataPelajaranController::class,'tambahMataPelajaran'])->name('mata-pelajaran.tambah');
+        Route::get('/data',[MataPelajaranController::class,'dataMataPelajaran'])->name('mata-pelajaran.data');
+        Route::get('/edit/{id}',[MataPelajaranController::class,'editMataPelajaran'])->name('mata-pelajaran.edit');
+        Route::post('/simpan',[MataPelajaranController::class,'simpan'])->name('mata-pelajaran.simpan');
+        Route::get('/list',[MataPelajaranController::class,'listMataPelajaran'])->name('mata-pelajaran.list');
     });
     Route::prefix('/export')->group(function(){
         Route::get('/siswa',[ExportController::class,'siswaExport'])->name('export.siswa');
@@ -99,7 +114,7 @@ Route::prefix('/guru')->group(function(){
 
 
  /**
- * Login
+ * Orang tua Siswa
  * Url untuk role Orang tua Siswa
  * url = http://localhost:8000/ortu-siswa
  */ 
